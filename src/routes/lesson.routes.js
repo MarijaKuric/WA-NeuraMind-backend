@@ -9,10 +9,11 @@ import {
 
 const router = express.Router()
 
-router.get('/', getLessons)
-router.get('/:id', getLessonById)
-router.post('/', createLesson)
-router.put('/:id', updateLesson)
-router.delete('/:id', deleteLesson)
+// CRUD rute
+router.get('/', getLessons)         // dohvat svih lekcija
+router.get('/:id', getLessonById)   // dohvat jedne lekcije
+router.post('/', createLesson)      // kreiranje lekcije (admin)
+router.put('/:id', updateLesson)    // update lekcije (admin)
+router.delete('/:id', deleteLesson) // brisanje lekcije (admin)
 
 export default router

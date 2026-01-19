@@ -1,35 +1,53 @@
 import Lesson from '../models/Lesson.js'
 
-// GET sve
+// GET: sve lekcije, sortirano po order
 export const getLessons = async (req, res) => {
-  const lessons = await Lesson.find().sort({ createdAt: -1 })
-  res.json(lessons)
+  try {
+    const lessons = await Lesson.find().sort({ order: 1 }) // rastuće po order: 1,2,3...
+    res.status(200).json(lessons)
+  } catch (err) {
+    res.status(500).json({ message: 'Greška pri dohvaćanju lekcija' })
+  }
 }
 
-// GET jednu lekciju
+// GET: jedna lekcija po ID-u
 export const getLessonById = async (req, res) => {
-  const lesson = await Lesson.findById(req.params.id)
-  res.json(lesson)
+  try {
+    const lesson = await Lesson.findById(req.params.id)
+    if (!lesson) return res.status(404).json({ message: 'Lekcija nije pronađena' })
+    res.status(200).json(lesson)
+  } catch (err) {
+    res.status(500).json({ message: 'Greška pri dohvaćanju lekcije' })
+  }
 }
 
-// POST
+// POST: kreiranje nove lekcije
 export const createLesson = async (req, res) => {
-  const lesson = await Lesson.create(req.body)
-  res.status(201).json(lesson)
+  try {
+    const lesson = await Lesson.create(req.body)
+    res.status(201).json(lesson)
+  } catch (err) {
+    res.status(500).json({ message: 'Greška pri kreiranju lekcije' })
+  }
 }
 
-// PUT
+// PUT: update lekcije po ID-u
 export const updateLesson = async (req, res) => {
-  const lesson = await Lesson.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true }
-  )
-  res.json(lesson)
+  try {
+    const lesson = await Lesson.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    if (!lesson) return res.status(404).json({ message: 'Lekcija nije pronađena' })
+    res.status(200).json(lesson)
+  } catch (err) {
+    res.status(500).json({ message: 'Greška pri ažuriranju lekcije' })
+  }
 }
 
-// DELETE
+// DELETE: brisanje lekcije po ID-u
 export const deleteLesson = async (req, res) => {
-  await Lesson.findByIdAndDelete(req.params.id)
-  res.json({ message: 'Lekcija obrisana' })
+  try {
+    await Lesson.findByIdAndDelete(req.params.id)
+    res.status(200).json({ message: 'Lekcija obrisana' })
+  } catch (err) {
+    res.status(500).json({ message: 'Greška pri brisanju lekcije' })
+  }
 }
