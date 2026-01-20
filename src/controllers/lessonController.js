@@ -3,7 +3,7 @@ import Lesson from '../models/Lesson.js'
 // GET: sve lekcije, sortirano po order
 export const getLessons = async (req, res) => {
   try {
-    const lessons = await Lesson.find().sort({ order: 1 }) // rastuće po order: 1,2,3...
+    const lessons = await Lesson.find().sort({ order: 1 })
     res.status(200).json(lessons)
   } catch (err) {
     res.status(500).json({ message: 'Greška pri dohvaćanju lekcija' })

@@ -6,7 +6,7 @@ import User from './models/User.js'
 dotenv.config()
 
 if (!process.env.MONGODB_URI) {
-  console.error('❌ MONGODB_URI nije definisan')
+  console.error('MONGODB_URI nije definiran')
   process.exit(1)
 }
 
@@ -17,7 +17,7 @@ const password = 'admin123'
 
 const exists = await User.findOne({ email })
 if (exists) {
-  console.log('⚠️ Admin već postoji:', email)
+  console.log('Admin već postoji:', email)
   process.exit()
 }
 
@@ -29,5 +29,5 @@ await User.create({
   role: 'admin'
 })
 
-console.log('✅ Admin uspešno kreiran:', email)
+console.log('Admin uspješno kreiran:', email)
 process.exit()
