@@ -7,6 +7,8 @@ import authRoutes from './routes/auth.routes.js'       // ADMIN
 import authKorisnikRoutes from './routes/authKorisnik.js' // KORISNIK
 import lessonRoutes from './routes/lesson.routes.js'
 import quizRoutes from './routes/quiz.routes.js'
+import statistikaRoutes from './routes/statistika.js'
+import zajednicaRoutes from './routes/zajednicaRoutes.js'
 
 dotenv.config()
 connectDB()
@@ -25,6 +27,8 @@ app.use('/api/korisnici', authKorisnikRoutes)
 // OSTALO
 app.use('/api/lessons', lessonRoutes)
 app.use('/api/quizzes', quizRoutes)
+app.use('/api/statistika', statistikaRoutes)
+app.use('/api/zajednica', zajednicaRoutes)
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () =>
